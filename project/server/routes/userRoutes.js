@@ -197,7 +197,7 @@ router.patch("/resetpassword", async function (req, res) {
 })
 
 // Route to get all users
-router.get("/users", async (req, res) => {
+router.get("/All", async (req, res) => {
   try {
     const users = await User.find().select("-password");
     res.status(200).json({
