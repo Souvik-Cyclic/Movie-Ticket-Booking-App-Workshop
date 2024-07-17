@@ -123,7 +123,7 @@ function withRoleBasedAuth(Component, role) {
         </>
       );
     } else {
-      return <Navigate to="/not-authorized" />;
+      return <Navigate to="/unauthorized" />;
     }
   };
 }

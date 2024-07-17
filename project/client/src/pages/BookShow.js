@@ -8,6 +8,7 @@ import moment from "moment";
 import { bookShow, makePayment } from "../calls/bookings";
 import StripeCheckout from "react-stripe-checkout";
 import "../index.css";
+import "./BookShow.css";
 
 const BookShow = () => {
   const { user } = useSelector((state) => state.user);
