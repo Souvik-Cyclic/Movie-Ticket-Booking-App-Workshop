@@ -306,7 +306,7 @@ hr{
     margin-bottom: 1rem;
   }
 }
-.legend {
+/* .legend {
   display: flex;
   justify-content: center;
   gap: 1rem;
@@ -322,4 +322,4 @@ hr{
 .legend-item .seat-btn {
   width: 30px;
   height: 30px;
-}
+} */
