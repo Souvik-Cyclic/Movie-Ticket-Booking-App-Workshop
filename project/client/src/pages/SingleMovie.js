@@ -27,7 +27,7 @@ const SingleMovie = () => {
       dispatch(showLoading());
       const response = await getMovieById(params.id);
       if (response.success) {
-        setMovie(response.data); // Assuming response.data includes description
+        setMovie(response.data);
       } else {
         message.error(response.message);
       }
@@ -56,11 +56,11 @@ const SingleMovie = () => {
 
   useEffect(() => {
     getData();
-  }, []); // Call once on component mount
+  }, []);
 
   useEffect(() => {
     getAllTheatres();
-  }, [date]); // Call when date changes
+  }, [date]);
 
   return (
     <div className="inner-container">
@@ -79,10 +79,13 @@ const SingleMovie = () => {
             </p>
             <p className="movie-data">
               Release Date:{" "}
-              <span>{moment(movie.date).format("MMM Do YYYY")}</span>
+              <span>{moment(movie.releaseDate).format("MMM Do YYYY")}</span>
             </p>
             <p className="movie-data">
               Duration: <span>{movie.duration} Minutes</span>
+            </p>
+            <p className="movie-data">
+              Rating: <span>{movie.rating.toFixed(1)}</span>
             </p>
             <p className="movie-data">
               Description: <span>{movie.description}</span>

@@ -29,9 +29,14 @@ const movieSchema = new mongoose.Schema({
         type: String, 
         required: true
     },
+    rating: {
+        type: Number,
+        required: true,
+        min: 0.1,
+        max: 10.0
+    },
 });
 
-const Movies = mongoose.model('movies', movieSchema)
+const Movies = mongoose.model('movies', movieSchema);
 
-
-module.exports = Movies
+module.exports = Movies;

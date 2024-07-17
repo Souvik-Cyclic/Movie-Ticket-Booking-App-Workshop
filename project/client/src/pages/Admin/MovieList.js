@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Table, Input, Row, Col } from "antd";
+import { Button, Table, Input, Row, Col, Rate } from "antd";
 import MovieForm from "./MovieForm";
 import DeleteMovieModal from "./DeleteMovieModal";
 import { hideLoading, showLoading } from "../../redux/loaderSlice";
@@ -78,6 +78,13 @@ function MovieList() {
       dataIndex: "releaseDate",
       render: (text, data) => {
         return moment(data.releaseDate).format("MM-DD-YYYY");
+      },
+    },
+    {
+      title: "Rating",
+      dataIndex: "rating",
+      render: (text, data) => {
+        return <span>{data.rating}</span>;
       },
     },
     {
@@ -170,3 +177,4 @@ function MovieList() {
 }
 
 export default MovieList;
+  
