@@ -7,6 +7,7 @@ import { message, Card, Row, Col, Button } from "antd";
 import moment from "moment";
 import { bookShow, makePayment } from "../calls/bookings";
 import StripeCheckout from "react-stripe-checkout";
+import "../index.css";
 
 const BookShow = () => {
   const { user } = useSelector((state) => state.user);
@@ -46,33 +47,21 @@ const BookShow = () => {
           </p>
           <div className="screen-div"></div>
         </div>
+        <div className="legend">
+          <div className="legend-item">
+            <span className="seat-btn booked"></span> Booked
+          </div>
+          <div className="legend-item">
+            <span className="seat-btn selected"></span> Selected
+          </div>
+          <div className="legend-item">
+            <span className="seat-btn"></span> Available
+          </div>
+        </div>
         <ul className="seat-ul justify-content-center">
           {Array.from(Array(rows).keys()).map((row) => {
             return Array.from(Array(columns).keys()).map((column) => {
               let seatNumber = row * columns + column + 1;
-
-              // Calculation for the first iteration
-              // 0*12 + 0+1 = 1
-              // 0*12 + 1+1 = 2
-              // 0*12 + 2+1 = 3
-              // So on up till 12th seat
-
-              // Calculation for the second iteration
-              // 1*12 + 0+1 = 13
-              // 1*12 + 1+1 = 14
-              // 1*12 + 2+1 = 15
-              // So on up till 24th seat
-
-              // Calculation for the third iteration
-              // 2*12 + 0+1 = 25
-              // 2*12 + 1+1 = 26
-              // 2*12 + 2+1 = 27
-              // So on up till 36th seat
-
-              // So on...
-
-              // this part
-
               let seatClass = "seat-btn";
 
               if (selectedSeats.includes(seatNumber)) {
@@ -98,6 +87,7 @@ const BookShow = () => {
                         }
                       }}
                       className={seatClass}
+                      disabled={show.bookedSeats.includes(seatNumber)}
                     >
                       {seatNumber}
                     </button>
