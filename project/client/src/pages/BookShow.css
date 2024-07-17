@@ -7,3 +7,41 @@
     display: flex;
     align-items: center;
 }
+
+.legend {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.legend-item .seat-btn {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+}
+
+.seat-btn {
+    background-color: white;
+    border: 1px solid black;
+    width: 30px;
+    height: 30px;
+    margin: 5px;
+}
+
+.seat-btn.booked {
+    background-color: gray;
+}
+
+.seat-btn.selected {
+    background-color: green;
+}
+
+.seat-btn.available {
+    background-color: white;
+}

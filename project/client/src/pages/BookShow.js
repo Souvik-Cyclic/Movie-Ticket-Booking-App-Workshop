@@ -47,17 +47,19 @@ const BookShow = () => {
           </p>
           <div className="screen-div"></div>
         </div>
-        {/* <div className="legend">
+        
+        <div className="legend">
           <div className="legend-item">
-            <span className="seat-btn booked"></span> Booked
+            <span className="seat-btn available"></span> Available
           </div>
           <div className="legend-item">
             <span className="seat-btn selected"></span> Selected
           </div>
           <div className="legend-item">
-            <span className="seat-btn"></span> Available
+            <span className="seat-btn booked"></span> Booked
           </div>
-        </div> */}
+        </div>
+
         <ul className="seat-ul justify-content-center">
           {Array.from(Array(rows).keys()).map((row) => {
             return Array.from(Array(columns).keys()).map((column) => {
@@ -73,7 +75,7 @@ const BookShow = () => {
 
               if (seatNumber <= totalSeats)
                 return (
-                  <li>
+                  <li key={seatNumber}>
                     <button
                       onClick={() => {
                         if (selectedSeats.includes(seatNumber)) {
@@ -142,7 +144,7 @@ const BookShow = () => {
       if (response.success) {
         message.success(response.message);
         book(response.data);
-         console.log(response);
+        console.log(response);
       } else {
         message.error(response.message);
       }
@@ -152,9 +154,6 @@ const BookShow = () => {
       dispatch(hideLoading());
     }
   };
-
-
-
 
   useEffect(() => {
     getData();
@@ -201,12 +200,9 @@ const BookShow = () => {
               {selectedSeats.length > 0 && (
                 <StripeCheckout
                   token={onToken}
-                  amount={selectedSeats.length * show.ticketPrice*100}
-            
-        
+                  amount={selectedSeats.length * show.ticketPrice * 100}
                   stripeKey="pk_test_51JKPQWSJULHQ0FL7VOkMrOMFh0AHMoCFit29EgNlVRSvFkDxSoIuY771mqGczvd6bdTHU1EkhJpojOflzoIFGmj300Uj4ALqXa"
                 >
-                  {/* Use this one in some situation=> pk_test_eTH82XLklCU1LJBkr2cSDiGL001Bew71X8  */}
                   <div className="max-width-600 mx-auto">
                     <Button type="primary" shape="round" size="large" block>
                       Pay Now
