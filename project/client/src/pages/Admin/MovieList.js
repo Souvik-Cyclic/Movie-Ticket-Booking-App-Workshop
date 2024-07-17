@@ -9,7 +9,6 @@ import moment from "moment";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import DeleteMovieModal from "./DeleteMovieModal";
 
-
 function MovieList() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [movies, setMovies] = useState([]);
@@ -48,6 +47,7 @@ function MovieList() {
             height="115"
             style={{ objectFit: "cover" }}
             src={data.poster}
+            alt="Error Loading img"
           />
         );
       },

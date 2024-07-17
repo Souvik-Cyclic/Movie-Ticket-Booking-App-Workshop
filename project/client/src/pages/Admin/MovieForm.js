@@ -5,8 +5,6 @@ import { useDispatch } from "react-redux";
 import { addMovie, updateMovie } from "../../calls/movies";
 import moment from "moment";
 
-// import moment from 'moment';
-
 const MovieForm = ({
   isModalOpen,
   setIsModalOpen,
@@ -55,16 +53,10 @@ const MovieForm = ({
     }
   };
 
-  // const handleOk = () => {
-  //   setIsModalOpen(false); onOk={handleOk}
-  // }
-
   const handleCancel = () => {
     setIsModalOpen(false);
     setSelectedMovie(null);
   };
-
-  // console.log(selectedMovie);
 
   return (
     <Modal

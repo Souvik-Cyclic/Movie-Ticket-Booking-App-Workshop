@@ -1,42 +1,36 @@
-import React, { Children } from 'react'
-import { useEffect } from 'react'
-import {Tabs} from 'antd'
-import MovieList from './MovieList'
-import TheatresTable from './TheatresTable'
-import MovieFrom from './MovieForm'
+import React, { Children } from "react";
+import { useEffect } from "react";
+import { Tabs } from "antd";
+import MovieList from "./MovieList";
+import TheatresTable from "./TheatresTable";
+import MovieFrom from "./MovieForm";
 
 function Admin() {
-      useEffect(() => {
-        document.title = "Admin Portal";
-      }, []);
+  useEffect(() => {
+    document.title = "Admin Portal";
+  }, []);
 
-    const tabItems = [
-        { 
-            key : '1',
-            label : 'Movies',
-            children : <MovieList/>
+  const tabItems = [
+    {
+      key: "1",
+      label: "Movies",
+      children: <MovieList />,
+    },
 
-        },
-
-        {
-           key : '2',
-           label : 'Theatres',
-           children : <TheatresTable/>
-        }
-    ]
-
+    {
+      key: "2",
+      label: "Theatres",
+      children: <TheatresTable />,
+    },
+  ];
 
   return (
     <div>
-        <h1>Admin Page</h1>
+      <h1>Admin Page</h1>
 
-
-
-        <Tabs items={tabItems}/>
-
-
+      <Tabs items={tabItems} />
     </div>
-  )
+  );
 }
 
-export default Admin
+export default Admin;
