@@ -21,7 +21,7 @@ function ProtectedRoute({ children }) {
 
   const navItems = [
     {
-      label: "Home",
+      label: <Link to="/">Home</Link>,
       icon: <HomeOutlined />,
     },
 
@@ -32,15 +32,15 @@ function ProtectedRoute({ children }) {
         {
           label: (
             <span
-            onClick={() => {
-              if (user.role === 'admin') {
-                navigate("/admin");
-              } else if (user.role === 'partner') {
-                navigate("/partner");
-              } else {
-                navigate("/profile");
-              }
-            }}
+              onClick={() => {
+                if (user.role === "admin") {
+                  navigate("/admin");
+                } else if (user.role === "partner") {
+                  navigate("/partner");
+                } else {
+                  navigate("/profile");
+                }
+              }}
             >
               My Profile
             </span>
@@ -69,10 +69,9 @@ function ProtectedRoute({ children }) {
     try {
       dispatch(showLoading());
       const response = await GetCurrentUser();
-      console.log(response)
+      console.log(response);
       dispatch(setUser(response.data));
       dispatch(hideLoading());
-      // Hide Loader
     } catch (error) {
       dispatch(setUser(null));
       message.error(error.message);
