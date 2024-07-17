@@ -22,7 +22,6 @@ const BookShow = () => {
       const response = await getShowById({ showId: params.id });
       if (response.success) {
         setShow(response.data);
-        // message.success(response.message);
         console.log(response.data);
       } else {
         message.error(response.message);
@@ -47,7 +46,7 @@ const BookShow = () => {
           </p>
           <div className="screen-div"></div>
         </div>
-        <div className="legend">
+        {/* <div className="legend">
           <div className="legend-item">
             <span className="seat-btn booked"></span> Booked
           </div>
@@ -57,7 +56,7 @@ const BookShow = () => {
           <div className="legend-item">
             <span className="seat-btn"></span> Available
           </div>
-        </div>
+        </div> */}
         <ul className="seat-ul justify-content-center">
           {Array.from(Array(rows).keys()).map((row) => {
             return Array.from(Array(columns).keys()).map((column) => {
