@@ -19,6 +19,7 @@ import {
   withUserAuth,
 } from "./components/roleBasedAuthRoute";
 import UnAuthorized from "./pages/UnAuthorized";
+import NotFound from "./pages/NotFound";
 
 function App() {
   const AdminRoute = withAdminAuth(Admin);
@@ -63,6 +64,7 @@ function App() {
             }
           />
           <Route path="/unauthorized"  element={<UnAuthorized />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </div>
