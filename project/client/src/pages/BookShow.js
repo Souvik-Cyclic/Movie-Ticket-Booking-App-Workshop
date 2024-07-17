@@ -197,6 +197,10 @@ const BookShow = () => {
               {getSeats()}
 
               {selectedSeats.length > 0 && (
+
+                /* Please refer to this for mock payment */
+                /* https://docs.stripe.com/testing#cards */
+                
                 <StripeCheckout
                   token={onToken}
                   amount={selectedSeats.length * show.ticketPrice * 100}
