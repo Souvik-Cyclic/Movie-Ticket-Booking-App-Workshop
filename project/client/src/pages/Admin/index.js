@@ -1,11 +1,14 @@
 import React, { Children } from 'react'
-
+import { useEffect } from 'react'
 import {Tabs} from 'antd'
 import MovieList from './MovieList'
 import TheatresTable from './TheatresTable'
 import MovieFrom from './MovieForm'
 
 function Admin() {
+      useEffect(() => {
+        document.title = "Admin Portal";
+      }, []);
 
     const tabItems = [
         { 
