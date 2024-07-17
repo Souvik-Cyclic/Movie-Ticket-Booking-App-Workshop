@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { hideLoading, showLoading } from "../redux/loaderSlice";
 import { getShowById } from "../calls/shows";
@@ -17,13 +17,13 @@ const BookShow = () => {
   const [selectedSeats, setSelectedSeats] = useState([]);
   const params = useParams();
   const navigate = useNavigate();
+
   const getData = async () => {
     try {
       dispatch(showLoading());
       const response = await getShowById({ showId: params.id });
       if (response.success) {
         setShow(response.data);
-        console.log(response.data);
       } else {
         message.error(response.message);
       }
@@ -47,7 +47,7 @@ const BookShow = () => {
           </p>
           <div className="screen-div"></div>
         </div>
-        
+
         <div className="legend">
           <div className="legend-item">
             <span className="seat-btn available"></span> Available
@@ -144,7 +144,6 @@ const BookShow = () => {
       if (response.success) {
         message.success(response.message);
         book(response.data);
-        console.log(response);
       } else {
         message.error(response.message);
       }
@@ -202,12 +201,17 @@ const BookShow = () => {
                   token={onToken}
                   amount={selectedSeats.length * show.ticketPrice * 100}
                   stripeKey="pk_test_51JKPQWSJULHQ0FL7VOkMrOMFh0AHMoCFit29EgNlVRSvFkDxSoIuY771mqGczvd6bdTHU1EkhJpojOflzoIFGmj300Uj4ALqXa"
+                  billingAddress={false}
+                  zipCode={false}
+                  currency="INR"
+                  name={`Complete your booking ${user.name}`}
+                  panelLabel="Pay Now"
+                  allowRememberMe={false}
+                  locale="auto"
                 >
-                  <div className="max-width-600 mx-auto">
-                    <Button type="primary" shape="round" size="large" block>
-                      Pay Now
-                    </Button>
-                  </div>
+                  <Button type="primary" shape="round" size="large" block>
+                    Pay Now
+                  </Button>
                 </StripeCheckout>
               )}
             </Card>
