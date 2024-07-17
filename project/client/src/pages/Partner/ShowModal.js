@@ -11,14 +11,12 @@ import {
 } from "antd";
 import { showLoading, hideLoading } from "../../redux/loaderSlice";
 import { useDispatch } from "react-redux";
-// import { addTheatre, updateTheatre } from '../../apicalls/theatres';
 import {
   ArrowLeftOutlined,
   EditOutlined,
   DeleteOutlined,
 } from "@ant-design/icons";
 import { useEffect, useState } from "react";
-// import { useSelector } from 'react-redux';
 import { getAllMovies } from "../../calls/movies";
 import {
   addShow,
@@ -73,7 +71,6 @@ const ShowModal = ({
       if (view === "form") {
         response = await addShow({ ...values, theatre: selectedTheatre._id });
       } else {
-        // console.log(view, selectedTheatre, selectedTheatre._id);
         response = await updateShow({
           ...values,
           showId: selectedShow._id,
