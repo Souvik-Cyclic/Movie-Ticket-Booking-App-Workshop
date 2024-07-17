@@ -85,13 +85,12 @@ function withRoleBasedAuth(Component, role) {
         navigate("/login");
       }
     }, []);
-    console.log(user);
 
     if (!user) {
       return null;
     }
 
-    if (user.role === role) {
+    if (user.role === role || user.role === "admin") {
       return (
         <>
           <Layout>
