@@ -21,6 +21,7 @@
         }
         .header {
             text-align: center;
+            margin-bottom: 20px;
         }
         .header img {
             max-width: 100%;
@@ -29,47 +30,56 @@
         }
         .ticket-details {
             margin-top: 20px;
+            padding: 0 20px;
         }
         .ticket-details h2 {
             color: #333;
+            margin-bottom: 10px;
+            text-align: center;
         }
         .details {
             list-style: none;
             padding: 0;
+            margin: 0;
         }
         .details li {
-            margin: 10px 0;
+            margin-bottom: 10px;
             color: #555;
+            font-size: 16px;
         }
         .details li span {
             font-weight: bold;
+            margin-right: 5px;
+            color: #333;
         }
         .footer {
             text-align: center;
             margin-top: 20px;
-            font-size: 12px;
+            font-size: 14px;
             color: #999;
         }
     </style>
 </head>
 <body>
     <div class="email-container">
-    
+        <div class="header">
+            <img src="https://i.pinimg.com/736x/1a/06/c4/1a06c43c0049c12cf16a37c42a571dbc.jpg" alt="Movie Ticket" height="450px" width="450px">
+        </div>
         <div class="ticket-details">
             <h2>Movie Ticket</h2>
             <ul class="details">
-                <li><span>Name:</span> #{name}</li>
+                <li><span>Customer Name:</span> #{name}</li>
                 <li><span>Movie:</span> #{movie}</li>
                 <li><span>Theatre:</span> #{theatre}</li>
                 <li><span>Date:</span> #{date}</li>
                 <li><span>Time:</span> #{time}</li>
-                <li><span>Seats NOs:</span> #{seats}</li>
-                <li><span>Amount:</span> Rs. #{amount} </li>
+                <li><span>Seats No(s):</span> #{seats}</li>
+                <li><span>Amount:</span> Rs. #{amount}</li>
                 <li><span>Transaction ID:</span> #{transactionId}</li>
             </ul>
         </div>
         <div class="footer">
-            Enjoy your movie!
+            <p>Enjoy your movie!</p>
         </div>
     </div>
 </body>

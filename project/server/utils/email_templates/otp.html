@@ -5,14 +5,15 @@
     <meta charset="UTF-8">
     <title>Email Verification OTP</title>
     <style>
-        /* Inline styles for email compatibility */
+        /* Global styles */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f4f4f4;
         }
 
+        /* Container styles */
         .container {
             width: 100%;
             max-width: 600px;
@@ -23,32 +24,38 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
+        /* Header styles */
         .header {
             text-align: center;
             margin-bottom: 20px;
         }
 
-        table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
-            margin-bottom: 20px;
-            background-color: #ffffff;
-            border: 2px dashed #333333;
-            border-radius: 6px;
+        .header h2 {
+            color: #333333;
+            margin: 10px 0;
         }
 
-        .otp {
-            font-size: 24px;
-            font-weight: bold;
+        /* Content styles */
+        .content {
             text-align: center;
-            padding: 10px;
+            color: #333333;
+        }
+
+        .otp-container {
+            width: 100%;
+            max-width: 300px;
+            margin: 20px auto;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            padding: 20px;
+            font-size: 36px;
+            font-weight: bold;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
         .note {
-            font-size: 14px;
+            font-size: 16px;
             color: #666666;
-            text-align: center;
         }
     </style>
 </head>
@@ -58,27 +65,13 @@
         <div class="header">
             <h2>RESET PASSWORD Verification OTP</h2>
         </div>
-        <h2>Hi #{name} </h2>
         <div class="content">
-            <p>Your One-Time Password (OTP) for reseting the password :</p>
-            <table>
-                <tr>
-                    <td style="border-radius: 6px 6px 0 0; background-color: #f9f9f9; padding: 10px;">
-                        <!-- Top rounded corners -->
-                        <div class="otp">
-                            <!-- OTP placeholder -->
-                            #{otp}
-                            <!-- Replace this with the actual OTP generated -->
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="border-radius: 0 0 6px 6px; background-color: #f9f9f9; padding: 10px;">
-                        <!-- Bottom rounded corners -->
-                        <p class="note">Please use this OTP to reset your password.</p>
-                    </td>
-                </tr>
-            </table>
+            <h3>Hi #{name},</h3>
+            <p>Your One-Time Password (OTP) for resetting the password:</p>
+            <div class="otp-container">
+                #{otp} <!-- Replace this with the actual OTP generated -->
+            </div>
+            <p class="note">Please use this OTP to reset your password.</p>
         </div>
     </div>
 </body>
