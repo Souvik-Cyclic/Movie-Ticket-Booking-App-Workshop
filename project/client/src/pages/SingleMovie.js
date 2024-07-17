@@ -10,14 +10,16 @@ import { getAllTheatresByMovie } from "../calls/shows";
 
 const SingleMovie = () => {
   const params = useParams();
-  const [movie, setMovie] = useState();
+  const [movie, setMovie] = useState(null);
   const [date, setDate] = useState(moment().format("YYYY-MM-DD"));
   const [theatres, setTheatres] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const handleDate = (e) => {
-    setDate(moment(e.target.value).format("YYYY-MM-DD"));
-    navigate(`/movie/${params.id}?date=${e.target.value}`);
+    const selectedDate = moment(e.target.value).format("YYYY-MM-DD");
+    setDate(selectedDate);
+    navigate(`/movie/${params.id}?date=${selectedDate}`);
   };
 
   const getData = async () => {
@@ -25,8 +27,7 @@ const SingleMovie = () => {
       dispatch(showLoading());
       const response = await getMovieById(params.id);
       if (response.success) {
-        setMovie(response.data);
-        console.log(response.data);
+        setMovie(response.data); // Assuming response.data includes description
       } else {
         message.error(response.message);
       }
@@ -48,108 +49,103 @@ const SingleMovie = () => {
       }
       dispatch(hideLoading());
     } catch (err) {
+      message.error(err.message);
       dispatch(hideLoading());
-      message.err(err.message);
     }
   };
 
   useEffect(() => {
     getData();
-  }, []);
+  }, []); // Call once on component mount
 
   useEffect(() => {
     getAllTheatres();
-  }, [date]);
+  }, [date]); // Call when date changes
 
   return (
-    <>
-      <div className="inner-container">
-        {movie && (
-          <div className="d-flex single-movie-div">
-            <div className="flex-Shrink-0 me-3 single-movie-img">
-              <img src={movie.poster} width={150} alt="Movie Poster" />
+    <div className="inner-container">
+      {movie && (
+        <div className="d-flex single-movie-div">
+          <div className="flex-Shrink-0 me-3 single-movie-img">
+            <img src={movie.poster} width={150} alt="Movie Poster" />
+          </div>
+          <div className="w-100">
+            <h1 className="mt-0">{movie.title}</h1>
+            <p className="movie-data">
+              Language: <span>{movie.language}</span>
+            </p>
+            <p className="movie-data">
+              Genre: <span>{movie.genre}</span>
+            </p>
+            <p className="movie-data">
+              Release Date:{" "}
+              <span>{moment(movie.date).format("MMM Do YYYY")}</span>
+            </p>
+            <p className="movie-data">
+              Duration: <span>{movie.duration} Minutes</span>
+            </p>
+            <p className="movie-data">
+              Description: <span>{movie.description}</span>
+            </p>
+            <hr />
+            <div className="d-flex flex-column-mob align-items-center mt-3">
+              <label className="me-3 flex-shrink-0">Choose the date:</label>
+              <Input
+                onChange={handleDate}
+                type="date"
+                className="max-width-300 mt-8px-mob"
+                value={date}
+                placeholder="Select Date"
+                prefix={<CalendarOutlined />}
+              />
             </div>
-            <div className="w-100">
-              <h1 className="mt-0">{movie.title}</h1>
-              <p className="movie-data">
-                Language: <span>{movie.language}</span>
-              </p>
-              <p className="movie-data">
-                Genre: <span>{movie.genre}</span>
-              </p>
-              <p className="movie-data">
-                Release Date:{" "}
-                <span>{moment(movie.date).format("MMM Do YYYY")}</span>
-              </p>
-              <p className="movie-data">
-                Duration: <span>{movie.duration} Minutes</span>
-              </p>
-              <hr />
-
-              <div className="d-flex flex-column-mob align-items-center mt-3">
-                <label className="me-3 flex-shrink-0">Choose the date:</label>
-                <Input
-                  onChange={handleDate}
-                  type="date"
-                  className="max-width-300 mt-8px-mob"
-                  value={date}
-                  placeholder="default size"
-                  prefix={<CalendarOutlined />}
-                />
-              </div>
+          </div>
+        </div>
+      )}
+      {theatres.length === 0 && (
+        <div className="pt-3">
+          <h2 className="blue-clr">
+            Currently, no theatres available for this movie!
+          </h2>
+        </div>
+      )}
+      {theatres.length > 0 && (
+        <div className="theatre-wrapper mt-3 pt-3">
+          <h2>Theatres</h2>
+          {theatres.map((theatre) => (
+            <div key={theatre._id}>
+              <Row gutter={24}>
+                <Col xs={{ span: 24 }} lg={{ span: 8 }}>
+                  <h3>{theatre.name}</h3>
+                  <p>{theatre.address}</p>
+                </Col>
+                <Col xs={{ span: 24 }} lg={{ span: 16 }}>
+                  <ul className="show-ul">
+                    {theatre.shows
+                      .sort(
+                        (a, b) =>
+                          moment(a.time, "HH:mm") - moment(b.time, "HH:mm")
+                      )
+                      .map((singleShow) => (
+                        <li
+                          key={singleShow._id}
+                          onClick={() =>
+                            navigate(`/book-show/${singleShow._id}`)
+                          }
+                        >
+                          {moment(singleShow.time, "HH:mm").format("hh:mm A")}
+                        </li>
+                      ))}
+                  </ul>
+                </Col>
+              </Row>
+              <Divider />
             </div>
-          </div>
-        )}
-        {theatres.length === 0 && (
-          <div className="pt-3">
-            <h2 className="blue-clr">
-              Currently, no theatres available for this movie!
-            </h2>
-          </div>
-        )}
-        {theatres.length > 0 && (
-          <div className="theatre-wrapper mt-3 pt-3">
-            <h2>Theatres</h2>
-            {theatres.map((theatre) => {
-              return (
-                <div key={theatre._id}>
-                  <Row gutter={24} key={theatre._id}>
-                    <Col xs={{ span: 24 }} lg={{ span: 8 }}>
-                      <h3>{theatre.name}</h3>
-                      <p>{theatre.address}</p>
-                    </Col>
-                    <Col xs={{ span: 24 }} lg={{ span: 16 }}>
-                      <ul className="show-ul">
-                        {theatre.shows
-                          .sort(
-                            (a, b) =>
-                              moment(a.time, "HH:mm") - moment(b.time, "HH:mm")
-                          )
-                          .map((singleShow) => {
-                            return (
-                              <li
-                                key={singleShow._id}
-                                onClick={() =>
-                                  navigate(`/book-show/${singleShow._id}`)
-                                }
-                              >
-                                {moment(singleShow.time, "HH:mm").format(
-                                  "hh:mm A"
-                                )}
-                              </li>
-                            );
-                          })}
-                      </ul>
-                    </Col>
-                  </Row>
-                  <Divider />
-                </div>
-              );
-            })}
-          </div>
-        )}
-      </div>
-    </>
+          ))}
+        </div>
+      )}
+    </div>
   );
 };
+
 export default SingleMovie;
