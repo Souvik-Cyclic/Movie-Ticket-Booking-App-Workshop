@@ -11,18 +11,17 @@ function replaceContent(content, creds) {
     allkeysArr.forEach(function (key) {
         content = content.replace(`#{${key}}`, creds[key]);
     })
-
     return content;
 }
 
-async function EmailHelper(templateName, reciverEmail, creds) {
+async function EmailHelper(templateName, receiverEmail, creds) {
     try {
         const templatePath = path.join(__dirname, "email_templates", templateName);
         let content = await fs.promises.readFile(templatePath, "utf-8");
 
         const emailDetails = {
-            to: reciverEmail,
-            from: SMTP_MAIL, // Change to your verified sender
+            to: receiverEmail,
+            from: SMTP_MAIL,
             subject: 'RESET OTP',
             text: `Hi ${creds.name}, this is your reset OTP: ${creds.otp}`,
             html: replaceContent(content, creds),
@@ -39,8 +38,9 @@ async function EmailHelper(templateName, reciverEmail, creds) {
 
         const transporter = nodemailer.createTransport(transportDetails);
         await transporter.sendMail(emailDetails);
-        console.log("Email sent");
+        console.log("Email Sent Successfully.");
     } catch (err) {
+        console.log("Email not sent. Check Error Below:")
         console.log(err);
     }
 }
