@@ -59,7 +59,7 @@ function Reset() {
                                 <Input
                                     id="password"
                                     type="password"
-                                    placeholder="Enter your Password"
+                                    placeholder="Enter your new Password"
 
                                 ></Input>
                             </Form.Item>

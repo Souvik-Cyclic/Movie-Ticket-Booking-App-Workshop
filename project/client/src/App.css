@@ -184,6 +184,10 @@ hr{
   gap: 0.5rem;
   flex-wrap: wrap;
   max-width: 600px;
+
+  /* for making seats selection in center */
+    /* margin: 0 auto;
+  max-width: 100%; */
 }
 .seat-ul .seat-btn{
   background-color: #f6f6f6;

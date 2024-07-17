@@ -4,7 +4,7 @@ const dotenv = require("dotenv");
 const path = require("path");
 dotenv.config();
 
-const { SENDGRID_API_KEY } = process.env;
+const { SMTP_HOST, SMTP_PORT, SMTP_MAIL, SMTP_PASSWORD } = process.env;
 
 function replaceContent(content, creds) {
     let allkeysArr = Object.keys(creds);
@@ -14,34 +14,35 @@ function replaceContent(content, creds) {
 
     return content;
 }
+
 async function EmailHelper(templateName, reciverEmail, creds) {
-    // console.log(templateName, reciverEmail, creds)
     try {
         const templatePath = path.join(__dirname, "email_templates", templateName);
         let content = await fs.promises.readFile(templatePath, "utf-8");
+
         const emailDetails = {
             to: reciverEmail,
-            from: 'mrinal.bhattacharya@scaler.com', // Change to your verified sender
+            from: SMTP_MAIL, // Change to your verified sender
             subject: 'RESET OTP',
-            text: `Hi ${creds.name} this your reset otp ${creds.otp}`,
+            text: `Hi ${creds.name}, this is your reset OTP: ${creds.otp}`,
             html: replaceContent(content, creds),
-        }
+        };
+
         const transportDetails = {
-            host: 'smtp.sendgrid.net',
-            port: 587,
+            host: SMTP_HOST,
+            port: SMTP_PORT,
             auth: {
-                user: "apikey",
-                pass: SENDGRID_API_KEY
+                user: SMTP_MAIL,
+                pass: SMTP_PASSWORD
             }
-        }
+        };
 
         const transporter = nodemailer.createTransport(transportDetails);
-        await transporter.sendMail((emailDetails))
-        console.log("email sent")
+        await transporter.sendMail(emailDetails);
+        console.log("Email sent");
     } catch (err) {
-        console.log(err)
+        console.log(err);
     }
-
 }
 
 module.exports = EmailHelper;

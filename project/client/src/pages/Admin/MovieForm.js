@@ -162,10 +162,9 @@ const MovieForm = ({
                     options={[
                       { value: "English", label: "English" },
                       { value: "Hindi", label: "Hindi" },
-                      { value: "Punjabi", label: "Punjabi" },
+                      { value: "Kannada", label: "Kannada" },
                       { value: "Telugu", label: "Telugu" },
                       { value: "Bengali", label: "Bengali" },
-                      { value: "German", label: "German" },
                     ]}
                   />
                 </Form.Item>
@@ -218,10 +217,11 @@ const MovieForm = ({
                     options={[
                       { value: "Action", label: "Action" },
                       { value: "Comedy", label: "Comedy" },
+                      { value: "Drama", label: "Drama" },
                       { value: "Horror", label: "Horror" },
                       { value: "Love", label: "Love" },
                       { value: "Patriot", label: "Patriot" },
-                      { value: "Bhakti", label: "Bhakti" },
+                      { value: "Animation", label: "Animation" },
                       { value: "Thriller", label: "Thriller" },
                       { value: "Mystery", label: "Mystery" },
                     ]}
