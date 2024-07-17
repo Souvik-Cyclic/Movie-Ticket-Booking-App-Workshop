@@ -1,5 +1,5 @@
 import "./App.css";
-
+import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -13,18 +13,22 @@ import SingleMovie from "./pages/SingleMovie";
 import Partner from "./pages/Partner";
 import Forget from "./pages/Forget";
 import Reset from "./pages/Reset";
+import {
+  withAdminAuth,
+  withPartnerAuth,
+  withUserAuth,
+} from "./components/roleBasedAuthRoute";
+import UnAuthorized from "./pages/UnAuthorized";
 
 function App() {
-  const { loading } = useSelector((state) => state.loader);
+  const AdminRoute = withAdminAuth(Admin);
+  const PartnerRoute = withPartnerAuth(Partner);
+  const UserRoute = withUserAuth(Profile);
+  const UserMovieRoute = withUserAuth(SingleMovie);
+  const UserBookShowRoute = withUserAuth(BookShow);
 
   return (
     <div className="App">
-      {loading && (
-        <div className="loader-container">
-          {" "}
-          <div className="loader"> </div>{" "}
-        </div>
-      )}
       <BrowserRouter>
         <Routes>
           <Route
@@ -35,36 +39,30 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route
-            path="/admin"
-            element={
-              <ProtectedRoute>
-                <Admin />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/profile"
-            element={
-              <ProtectedRoute>
-                <Profile />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/partner"
-            element={
-              <ProtectedRoute>
-                <Partner />
-              </ProtectedRoute>
-            }
-          />
-          <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path='/forget' element={<Forget/>}/>
-          <Route path='/reset' element={<Reset/>}/>
-          <Route path="/movie/:id" element={<ProtectedRoute><SingleMovie/></ProtectedRoute>} />
-          <Route path="/book-show/:id" element={<ProtectedRoute><BookShow/></ProtectedRoute>} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/profile" element={<UserRoute />} />
+          <Route path="/admin" element={<AdminRoute />} />
+          <Route path="/forget" element={<Forget />} />
+          <Route path="/reset" element={<Reset />} />
+          <Route path="/partner" element={<PartnerRoute />} />
+          <Route
+            path="/movie/:id"
+            element={
+              <ProtectedRoute>
+                <SingleMovie />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/book-show/:id"
+            element={
+              <ProtectedRoute>
+                <BookShow />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/unauthorized" element={<UnAuthorized />} />
         </Routes>
       </BrowserRouter>
     </div>
