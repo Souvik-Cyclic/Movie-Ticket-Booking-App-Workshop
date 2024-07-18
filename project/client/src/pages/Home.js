@@ -31,7 +31,6 @@ const Home = () => {
 
   const handleSearch = (e) => {
     setSearchText(e.target.value);
-    console.log(searchText);
   };
 
   useEffect(() => {
@@ -44,7 +43,7 @@ const Home = () => {
       <Row className="justify-content-center w-100">
         <Col xs={{ span: 24 }} lg={{ span: 12 }} style={{ marginBottom: '30px' }}>
           <Input
-            placeholder="Search for movies & shows"
+            placeholder="Search for movies & shows by title, genre, or rating"
             onChange={handleSearch}
             prefix={<SearchOutlined />}
             style={{ borderRadius: '8px', padding: '10px' }}
@@ -54,9 +53,14 @@ const Home = () => {
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', justifyContent: 'center' }}>
         {movies &&
           movies
-            .filter((movie) =>
-              movie.title.toLowerCase().includes(searchText.toLowerCase())
-            )
+            .filter((movie) => {
+              const lowerSearchText = searchText.toLowerCase();
+              return (
+                movie.title.toLowerCase().includes(lowerSearchText) ||
+                movie.genre.toLowerCase().includes(lowerSearchText) ||
+                movie.rating.toString().includes(lowerSearchText)
+              );
+            })
             .map((movie) => (
               <div
                 key={movie._id}
@@ -95,6 +99,8 @@ const Home = () => {
                 <h3 style={{ marginTop: '10px', fontSize: '16px', fontWeight: 'bold' }}>
                   {movie.title}
                 </h3>
+                <p style={{ margin: '5px 0', fontSize: '14px' }}>{movie.genre}</p>
+                <p style={{ margin: '5px 0', fontSize: '14px' }}>Rating: {movie.rating}</p>
               </div>
             ))}
       </div>
